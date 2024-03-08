@@ -10,28 +10,28 @@ for _ in range(people):
     if idx is not None:
         preferences[idx] += 1
 
-scores = {}
+hits = {}
 
 for _ in range(people):
     line = input().split()
     name = line[0]
     pantry = map(int, line[1:])
 
-    score = 0
+    total = 0
     for i, c in enumerate(pantry):
-        score += min(c, preferences[i])
+        total += min(c, preferences[i])
 
-    scores[name] = score
+    hits[name] = total
 
 
-def get_result(disgruntled):
-    if disgruntled == 0:
+def get_result(misses):
+    if misses == 0:
         return "Successful"
-    elif disgruntled <= 2:
-        return f"Mildly Successful ({disgruntled})"
-    return f"Disaster ({disgruntled})"
+    elif misses <= 2:
+        return f"Mildly Successful ({misses})"
+    return f"Disaster ({misses})"
 
 
 for host in [input() for _ in range(hosts)]:
-    disgruntled = people - scores[host]
-    print(host, get_result(disgruntled))
+    misses = people - hits[host]
+    print(host, get_result(misses))
